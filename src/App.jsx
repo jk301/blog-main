@@ -12,10 +12,10 @@ function App() {
 
   return (
     <BrowserRouter>
-    <Nav logged={logged} />
+    <Nav logged={logged} setLogged={setLogged}/>
       <Routes>
         <Route path='/' element={<Home />} />
-        <Route path='/register' element={<Register logged={logged} setLogged={setLogged} />} />
+        <Route path='/register' element={<Register logged={logged} />} />
         <Route path='/login' element={<Login logged={logged} setLogged={setLogged} />} /> 
         <Route path='/posts/:postId' element={<Postview />} /> 
       </Routes>
