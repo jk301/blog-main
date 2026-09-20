@@ -58,7 +58,8 @@ function Login({ logged, setLogged }) {
                 type="email" 
                 id="email"
                 value={email}
-                onChange={(e) => {setEmail(e.target.value)}}
+                onChange={(e) => {setEmail(e.target.value)}} 
+                required
             />
             <label htmlFor="password">Password</label>
             <input 
@@ -66,8 +67,9 @@ function Login({ logged, setLogged }) {
                 id="password" 
                 value={password}
                 onChange={(e) => {setPassword(e.target.value)}}
+                required
             />
-            <button type="submit" >Submit</button>
+            <button type="submit" >Login</button>
         </form>
     </div>
   )
