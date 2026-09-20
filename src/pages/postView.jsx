@@ -6,6 +6,8 @@ function Postview () {
     const [post, setPost] = useState(null)
     const [comment, setComment] = useState('')
     const [comError, setComError] = useState('')
+    const [editId, setEditId] = useState(null)
+    const [editText, setEditText] = useState('')
     const [error, setError] = useState('')
     const [loading, setLoading] = useState(true)
 
@@ -77,6 +79,40 @@ function Postview () {
         }
     }
 
+    async function handleComEdit(e, commentId) {
+        e.preventDefault()
+
+        try {
+            const token = localStorage.getItem('token')
+            const res = await fetch(
+                `http://localhost:3000/main/posts/${postId}/comments/${commentId}/edit`, 
+                {
+                    method: 'PUT', 
+                    headers: { 
+                        'Content-Type': 'application/json',
+                        Authorization: `Bearer ${token}` 
+                    }, 
+                    body: JSON.stringify({ text: editText })
+                }
+            )
+
+            const data = await res.json()
+
+            if (!res.ok) {
+                setComError(data.error || "Could not edit comment :(")
+                return 
+            }
+
+            setEditId(null)
+            setEditText('')
+            getPost()
+
+        } catch (error) {
+            console.log(error)
+            setError(error.message)
+        }
+    }
+
     async function handleComDel (commentId) {
         try {
             const token = localStorage.getItem('token')
@@ -127,15 +163,40 @@ function Postview () {
             <div className="post-comment">
                 {post.comments.map(com => (
                     <div key={com.id} className="comment">
-                        <h3>{com.content}</h3>
-                        <p>Posted at {com.createdAt}</p>
-                        <p>User {com.name}</p>
-                        {com.userId === userId 
-                            && <button >Edit comment</button> 
+                        {com.id === editId 
+                            ? <form onSubmit={(e) => {handleComEdit(e, editId)}}>
+                                <textarea 
+                                    value={editText} 
+                                    onChange={(e) => {setEditText(e.target.value)}}
+                                    required
+                                /> 
+                                <button type="submit">Submit changes</button>
+                                <button 
+                                    type="button" 
+                                    onClick={() => {
+                                        setEditId(null) 
+                                        setEditText('')
+                                    }}
+                                >
+                                    Cancel
+                                </button>
+                                </form>
+                            : <div>
+                                <h3>{com.content}</h3>
+                                <p>Posted at {com.createdAt}</p>
+                                <p>User {com.name}</p>
+                                {com.userId === userId 
+                                    && <button onClick={() => {
+                                        setEditId(com.id)
+                                        setEditText(com.content)
+                                    }}>Edit comment</button> 
+                                }
+                                {com.userId === userId 
+                                    && <button onClick={() => handleComDel(com.id)}>Delete comment</button> 
+                                }
+                            </div>
                         }
-                        {com.userId === userId 
-                            && <button onClick={() => handleComDel(com.id)}>Delete comment</button> 
-                        }
+                        
                     </div>
                 ))}
             </div>
