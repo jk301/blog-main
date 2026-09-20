@@ -5,15 +5,18 @@ import Home from './pages/home.jsx'
 import Register from './pages/register.jsx'
 import Login from './pages/login'
 import Postview from './pages/postView.jsx'
+import { useState } from 'react'
 
 function App() {
+  const [logged, setLogged] = useState(!!localStorage.getItem('token'))
+
   return (
     <BrowserRouter>
-    <Nav />
+    <Nav logged={logged} />
       <Routes>
         <Route path='/' element={<Home />} />
-        <Route path='/register' element={<Register />} />
-        <Route path='/login' element={<Login />} /> 
+        <Route path='/register' element={<Register logged={logged} setLogged={setLogged} />} />
+        <Route path='/login' element={<Login logged={logged} setLogged={setLogged} />} /> 
         <Route path='/posts/:postId' element={<Postview />} /> 
       </Routes>
     </BrowserRouter>

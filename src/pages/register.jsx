@@ -1,7 +1,7 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { useNavigate } from "react-router-dom"
 
-function Register() {
+function Register({ logged }) {
     const [email, setEmail] = useState('')
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
@@ -10,6 +10,14 @@ function Register() {
     const [error, setError] = useState('')
 
     const navigate = useNavigate()
+
+    useEffect (() => {
+            if (logged) {
+                console.log('already logged in, returning home.')
+                navigate('/')
+                return 
+            }      
+        }, [logged, navigate])
 
     async function handleReg (e) {
         e.preventDefault()

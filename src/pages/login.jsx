@@ -1,17 +1,28 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
+import { useNavigate } from "react-router-dom"
 
 
-function Login() {
+function Login({ logged, setLogged }) {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [error, setError] = useState('')
 
+    const navigate = useNavigate()
+
+    useEffect (() => {
+        if (logged) {
+            console.log('already logged in, returning home.')
+            navigate('/')
+            return 
+        }      
+    }, [logged, navigate])
+
+
     async function handleLogin (e) {
         e.preventDefault()
-        setError('')
+        setError('') 
 
         try {
-            
             const res = await fetch('http://localhost:3000/main/login', {
                 method: 'POST', 
                 headers: { 'Content-Type': 'application/json' }, 
@@ -22,11 +33,14 @@ function Login() {
 
             if (!res.ok) {
                 setError(data.error || "Something went wrong.")
+                return 
             }
 
             // token
-            console.log(data.token)
+            setLogged(true)
+            console.log('Logged in.')
             localStorage.setItem("token", data.token)
+            navigate('/')
 
         } catch (err) {
             console.log(err)
