@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react"
 import { useNavigate } from "react-router-dom"
 
+import '../styles/login.css'
+
 function Register({ logged }) {
     const [email, setEmail] = useState('')
     const [username, setUsername] = useState('')
@@ -52,7 +54,7 @@ function Register({ logged }) {
 
   return (
     <div className="login">
-        <h1>Register</h1>
+        <h1>Sign up</h1>
         {error && <p>{error}</p>}
         <form onSubmit={handleReg}>
             <label htmlFor="email">Email</label>

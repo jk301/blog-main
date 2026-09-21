@@ -1,6 +1,8 @@
 import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 
+import '../styles/postView.css'
+
 function Postview () {
     const { postId } = useParams()
     const [post, setPost] = useState(null)
@@ -140,9 +142,9 @@ function Postview () {
         }
     }
 
-    if (loading) return <p>Loading post.</p>
-    if (error) return <p>{error}</p>
-    if (!post) return <p>Post not available.</p>
+    if (loading) return <div className="status-msg"><p>Loading post.</p></div>
+    if (error) return <div className="status-msg"><p>{error}</p></div>
+    if (!post) return <div className="status-msg"><p>Post not available.</p></div>
 
     return (
         <div className="post-view">
@@ -182,9 +184,9 @@ function Postview () {
                                 </button>
                                 </form>
                             : <div>
-                                <h3>{com.content}</h3>
+                                <p>@{com.name}</p>  
                                 <p>Posted at {com.createdAt}</p>
-                                <p>User {com.name}</p>
+                                <h3>{com.content}</h3>
                                 {com.userId === userId 
                                     && <button onClick={() => {
                                         setEditId(com.id)

@@ -1,5 +1,7 @@
-import { NavLink } from "react-router-dom"
+import { NavLink, Link } from "react-router-dom"
 import { useNavigate } from "react-router-dom"
+
+import '../styles/nav.css'
 
 function Nav ({ logged, setLogged }) {
     const navigate = useNavigate()
@@ -16,11 +18,10 @@ function Nav ({ logged, setLogged }) {
 
     return (
         <nav>
-            <h1>This is navbar</h1>
-            <NavLink to='/' >Home</NavLink>
+            <Link to='/'><h1>Bloggy</h1></Link>
             { logged ? <div className="nav-but"><button onClick={handleLogout} >Logout</button></div>
                 : <div className="nav-but">
-                    <NavLink to='/register'>Register</NavLink>
+                    <NavLink to='/register'>Sign up</NavLink>
                     <NavLink to='/login'>Login</NavLink>
                 </div>
             }
