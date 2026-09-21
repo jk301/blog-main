@@ -33,7 +33,7 @@ function Postview () {
                 const data = await res.json()
                 setPost(data.Post)
             } else if (res.status === 401) {
-                setError("You must be logged in to view this post.")
+                setError("Want to see the post? sign up & log in.")
             } else {
                 const data = await res.json()
                 setError(data.error || "Could not load post :(")
