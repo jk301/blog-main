@@ -1,5 +1,7 @@
 import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
+import dayjs from "dayjs";
+
 
 import '../styles/postView.css'
 
@@ -184,8 +186,8 @@ function Postview () {
                                 </button>
                                 </form>
                             : <div>
-                                <p>@{com.name}</p>  
-                                <p>Posted at {com.createdAt}</p>
+                                <p className="comment-author">@{com.name}</p>  
+                                <p>{dayjs(com.createdAt).format('MMM D, YYYY h:mm A')}</p>
                                 <h3>{com.content}</h3>
                                 {com.userId === userId 
                                     && <button onClick={() => {
