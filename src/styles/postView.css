@@ -65,6 +65,13 @@
   padding: 1rem;
   border: 1px solid #eee;
   border-radius: 6px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+
+  transition: box-shadow 0.15s ease;
+}
+
+.comment:hover {
+  box-shadow: 0 3px 9px rgba(0, 0, 0, 0.12);
 }
 
 .comment h3 {
@@ -101,4 +108,10 @@
   border-radius: 4px;
   font-family: inherit;
   margin-bottom: 0.5rem;
+}
+
+.comment-author {
+  font-size: 1rem;
+  font-weight: bold;
+  color: #222;
 }
