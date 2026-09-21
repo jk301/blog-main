@@ -14,7 +14,7 @@ function App() {
     <BrowserRouter>
     <Nav logged={logged} setLogged={setLogged}/>
       <Routes>
-        <Route path='/' element={<Home />} />
+        <Route path='/' element={<Home logged={logged} />} />
         <Route path='/register' element={<Register logged={logged} />} />
         <Route path='/login' element={<Login logged={logged} setLogged={setLogged} />} /> 
         <Route path='/posts/:postId' element={<Postview />} /> 
