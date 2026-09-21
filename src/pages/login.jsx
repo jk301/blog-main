@@ -29,6 +29,11 @@ function Login({ logged, setLogged }) {
                 body: JSON.stringify({ email, password })
             })
 
+            if (res.status === 401) {
+                setError('Invalid email or password.')
+                return
+            }
+
             const data = await res.json()
 
             if (!res.ok) {
