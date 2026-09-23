@@ -152,6 +152,10 @@ function Postview () {
         <div className="post-view">
             <h2>{post.title}</h2>
             <p>{post.content}</p>
+            <div className="post-auth-detail">
+                <h3>Posted by [{post.username}]</h3>
+                <p>Posted at {dayjs(post.createdAt).format('MMM D, YYYY ')}</p>
+            </div>
             <div className="comment-input">
                 {comError && <p>{comError}</p>}
                 <form onSubmit={handlePostComment}>
