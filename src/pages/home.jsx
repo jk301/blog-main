@@ -13,7 +13,7 @@ function Home({ logged }) {
                 console.log('fetching ')
                 if (logged) {
                     const token = localStorage.getItem("token")
-                    const res = await fetch('http://localhost:3000/main/posts/all', {
+                    const res = await fetch(`${import.meta.env.VITE_API_URL}/main/posts/all`, {
                         headers: {
                             'Content-Type': 'application/json',
                             Authorization: `Bearer ${token}` 
@@ -22,7 +22,7 @@ function Home({ logged }) {
                     const data = await res.json()
                     setPosts(data.posts || [])
                 } else {
-                    const res = await fetch('http://localhost:3000/main/posts/lim')
+                    const res = await fetch(`${import.meta.env.VITE_API_URL}/main/posts/lim`)
                     const data = await res.json()
                     setPosts(data.posts || [])
                 }
